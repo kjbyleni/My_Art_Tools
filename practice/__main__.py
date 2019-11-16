@@ -25,8 +25,6 @@ def launch_practice_tool():
     tool_selected = welcome()
 
     while tool_selected in options:
-        welcome()
-
         if tool_selected == FIGURE_DRAWING:
             with open('path.txt', "r") as paths_file:
                 file_array = paths_file.readlines()
