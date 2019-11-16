@@ -39,3 +39,7 @@ def launch_practice_tool():
             exit()
 
         another_tool = input("would you like another tool? (y,n)")
+
+
+if __name__ == '__main__':
+    launch_practice_tool()

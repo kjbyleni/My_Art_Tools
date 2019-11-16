@@ -37,7 +37,7 @@ def validate_is_number(how_many=None, attempt=0):
             validate_is_number(how_many=None, attempt=attempt + 1)
 
 
-def launch_draw_tool():
+def welcome():
     print("\n\n",
           "Welcome to Kyle's Draw tools.",
           f"\n\t({ENVIRONMENT_GENERATOR} + ENTER) -- Environment Generator",
@@ -47,8 +47,11 @@ def launch_draw_tool():
           f"\n\t({EDIT_LIST} + ENTER) -- Edit Lists",
           "\n\t(any other key) -- Exit")
 
+
+def launch_draw_tool():
     another_tool = YES
     while another_tool == YES:
+        welcome()
         tool_selected = input("Which Tool? ")
 
         if tool_selected == ENVIRONMENT_GENERATOR:
@@ -90,3 +93,7 @@ def launch_draw_tool():
 
         print("Good Luck!")
         another_tool = input("would you like another tool? (y,n)")
+
+
+if __name__ == '__main__':
+    launch_draw_tool()

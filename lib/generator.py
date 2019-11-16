@@ -31,7 +31,7 @@ class Generator:
         if len(keys) == 0:
             self.keys = self.lst.keys()
         else:
-            self.keys = []
+            self.keys = keys
 
     def get_keys(self):
         return list(self.keys)
@@ -60,6 +60,7 @@ class Generator:
     def generate_multiple(self, how_many=None, key='items'):
         for i in range(how_many):
             self.get_rand_item(key)
+        self.print_result()
 
     def print_result(self):
         print_result(self.rand_items, self.context)
