@@ -1,20 +1,7 @@
 import json
 
 from random import randint
-
-
-def print_items(items):
-    for item in items:
-        print(f'\t\t{item}')
-
-
-def print_result(items, context):
-    print(
-        '\n\t',
-        f'---------   Creating your {context}  ---------'
-    )
-    print_items(items)
-    print(f'\t -----------   {context} Created!   -----------\n')
+import lib.utils as utils
 
 
 class Generator:
@@ -62,7 +49,7 @@ class Generator:
         self.print_result()
 
     def print_result(self):
-        print_result(self.rand_items, self.context)
+        utils.print_result(self.rand_items, self.context)
 
     @staticmethod
     def convert_file_to_array(file_location):

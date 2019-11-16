@@ -1,6 +1,7 @@
 import os
 
-import ideas.ideas_factory as gen_factory
+import ideas.factory as gen_factory
+import lib.utils as utils
 
 EDIT_LIST = 'q'
 ITEM_GENERATOR = 'i'
@@ -8,33 +9,6 @@ CHARACTER_GENERATOR = 'c'
 ENVIRONMENT_GENERATOR = 'e'
 GENERATE_ALL = 'a'
 YES = 'y'
-
-
-def print_items(items):
-    for item in items:
-        print(f'\t\t{item}')
-
-
-def print_result(items, context):
-    print(
-        '\n\t',
-        f'---------   Creating your {context}  ---------'
-    )
-    print_items(items)
-    print(f'\t -----------   {context} Created!   -----------\n')
-
-
-def validate_is_number(how_many=None, attempt=0):
-    if how_many is None:
-        how_many = input('How Many? ')
-    try:
-        return int(how_many)
-    except ValueError:
-        print("input must be a number")
-        if attempt > 1:
-            print("too many attempts!")
-        else:
-            validate_is_number(how_many=None, attempt=attempt + 1)
 
 
 def welcome():
@@ -58,7 +32,7 @@ def launch_draw_tool():
             gen_factory.get_env().generate()
 
         elif tool_selected == ITEM_GENERATOR:
-            how_many = validate_is_number()
+            how_many = utils.validate_is_number()
             gen_factory.get_items().generate_multiple(how_many)
 
         elif tool_selected == CHARACTER_GENERATOR:

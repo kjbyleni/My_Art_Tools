@@ -3,44 +3,31 @@ from os import walk, path
 from random import randint
 import webbrowser
 
-from practice.user_messenger import UserMessenger
-
 
 class FigureDrawing:
 
-    def __init__(self, path_to_pics):
-        self.msg = UserMessenger()
+    def __init__(self, path_to_pics: str):
         self.files_in_path = None
         self.supported_img_extensions = ["jpg", "jpeg", "png"]
         self.exclude_files_that_contain = ["PoseOverview"]
         self.path_to_pics = path_to_pics
         pass
 
-    def generate_pic(self, how_many=None, attempt=0):
+    def generate_pic(self, how_many: int):
         min_value = 0
         max_value = 10
         if self.files_in_path is None:
             self.get_images_in_folder(self.path_to_pics)
 
-        if how_many is None:
-            how_many = self.msg.how_many()
-        try:
-            total = int(how_many)
-            if 0 < total < 10:
-                for i in range(total):
-                    rand_num = randint(0, (len(self.files_in_path) - 1))
-                    img = webbrowser.open(self.files_in_path[rand_num])
-                    self.msg.success()
-            else:
-                self.msg.out_of_bounds(min_value, max_value)
-        except ValueError:
-            self.msg.input_must_be_number()
-            if attempt > 1:
-                self.msg.too_many_attempts()
-            else:
-                FigureDrawing.generate_pic(self, how_many=None, attempt=attempt + 1)
+        total = int(how_many)
+        if min_value < total < max_value:
+            for i in range(total):
+                rand_num = randint(0, (len(self.files_in_path) - 1))
+                webbrowser.open(self.files_in_path[rand_num])
+        else:
+            print(f"must be {min_value} < how_many < {max_value}")
 
-    def get_images_in_folder(self, folder_path):
+    def get_images_in_folder(self, folder_path: str):
         self.files_in_path = []
         for r, d, f in walk(folder_path):
             for file in f:

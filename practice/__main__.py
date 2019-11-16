@@ -1,6 +1,7 @@
 from practice.generate_pic import FigureDrawing
 
 import practice.factory as practice_factory
+import lib.utils as utils
 
 FIGURE_DRAWING = 'f'
 EXERCISE = 'e'
@@ -28,7 +29,8 @@ def launch_practice_tool():
             with open('path.txt', "r") as paths_file:
                 file_array = paths_file.readlines()
                 fig = FigureDrawing(file_array[0])
-                fig.generate_pic()
+                how_many = utils.validate_is_number()
+                fig.generate_pic(how_many)
 
         elif tool_selected == EXERCISE:
             practice_factory.get_exercise().generate()
