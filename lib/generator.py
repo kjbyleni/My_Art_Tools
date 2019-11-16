@@ -2,40 +2,44 @@ import json
 import os
 
 from random import randint
-from ideas.user_messenger import Messenger
+
+
+def print_items(items):
+    for item in items:
+        print(f'\t\t{item}')
+
+
+def print_result(items, context):
+    print(
+        '\n\t',
+        f'---------   Creating your {context}  ---------'
+    )
+    print_items(items)
+    print(f'\t -----------   {context} Created!   -----------\n')
 
 
 class Generator:
 
-    def __init__(self, context='general', gen_path='./ideas/ideas.txt', mod_path='./ideas/tmp.txt'):
-        self.mod_path = mod_path
-        self.gen_path = gen_path
+    def __init__(self, context='general', keys=[], idea_path='./ideas/ideas.txt', temp_path='./ideas/tmp.txt'):
+        self.temp_path = temp_path
+        self.idea_path = idea_path
         self.context = context
-        self.message = Messenger
         self.rand_items = []
-        with open(self.gen_path, 'r') as json_file:
+
+        with open(self.idea_path, 'r') as json_file:
             self.lst = json.load(json_file)
 
-    def get_keys(self):
-        return list(self.lst.keys())
+        if len(keys) == 0:
+            self.keys = self.lst.keys()
+        else:
+            self.keys = []
 
-    # Method has no unit tests
-    def edit_lst(self, key):
-        f = open(self.mod_path, 'w')
-        if key in self.lst:
-            for item in sorted(self.lst[key]):
-                f.write(f'{item}\n')
-            f.close()
-            os.system(f'notepad.exe {self.mod_path}')
-            self.lst[key] = Generator.convert_file_to_array(self.mod_path)
-            self.export_lst()
-            if os.path.exists(self.mod_path):
-                os.remove(self.mod_path)
-                Messenger.success()
+    def get_keys(self):
+        return list(self.keys())
 
     def export_lst(self, export_to=None):
         if export_to is None:
-            export_to_path = self.gen_path
+            export_to_path = self.idea_path
         else:
             export_to_path = export_to
         temp_lst = json.dumps(self.lst, indent=4)
@@ -50,12 +54,16 @@ class Generator:
         self.rand_items.append(self.lst[key][rand_num])
 
     def generate(self):
-        for key in self.lst:
+        for key in self.keys:
             self.get_rand_item(key)
         self.print_result()
 
+    def generate_multiple(self, how_many=None):
+        for i in range(how_many):
+            self.get_rand_item(self.ITEMS)
+
     def print_result(self):
-        Messenger.print_result(self.rand_items, self.context)
+        print_result(self.rand_items, self.context)
 
     @staticmethod
     def convert_file_to_array(file_location):
@@ -66,3 +74,4 @@ class Generator:
         for item in file_array:
             stripped_array.append(item.strip())
         return stripped_array
+

@@ -11,7 +11,7 @@ KEYS = ['shapes', 'physical nature', 'distinguishing characteristic', 'items', '
 
 @pytest.fixture
 def gen():
-    return Generator(gen_path="./test_generator_data/test_ideas.txt")
+    return Generator(idea_path="./test_generator_data/test_ideas.txt")
 
 
 def test_init_default_context(gen):
@@ -51,7 +51,7 @@ def test_export_unique_path():
     export_file_path = './test_generator_data/exported.txt'
     assert not os.path.exists(export_file_path)
 
-    gen = Generator(gen_path='./test_generator_data/tst_export.txt')
+    gen = Generator(idea_path='./test_generator_data/tst_export.txt')
     gen.export_lst(export_file_path)
     assert os.path.exists(export_file_path)
 
@@ -62,7 +62,7 @@ def test_export_default_path():
     original_path = './test_generator_data/original.txt'
     assert os.path.exists(original_path)
 
-    gen = Generator(gen_path=original_path)
+    gen = Generator(idea_path=original_path)
     os.remove(original_path)
 
     assert not os.path.exists(original_path)
