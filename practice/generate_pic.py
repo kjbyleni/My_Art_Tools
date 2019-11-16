@@ -1,8 +1,7 @@
 from builtins import len
 from os import walk, path
 from random import randint
-
-from PIL import Image
+import webbrowser
 
 from practice.user_messenger import UserMessenger
 
@@ -30,8 +29,7 @@ class FigureDrawing:
             if 0 < total < 10:
                 for i in range(total):
                     rand_num = randint(0, (len(self.files_in_path) - 1))
-                    img = Image.open(self.files_in_path.__getitem__(rand_num))
-                    img.show()
+                    img = webbrowser.open(self.files_in_path[rand_num])
                     self.msg.success()
             else:
                 self.msg.out_of_bounds(min_value, max_value)
@@ -53,27 +51,3 @@ class FigureDrawing:
 
         return self.files_in_path
 
-    # def should_add_file(file_path, include_files_that_contain=[], exclude_files_that_contain=[]):
-    #     for exclude in exclude_files_that_contain:
-    #         if exclude in file_path:
-    #             return False
-    #
-    #     # Any matching extensions should be included
-    #     if not any(ext in file_path for ext in include_files_that_contain):
-    #         # print("don't add file\n", file_path)
-    #         return False
-    #     return True
-    # @staticmethod
-    # def path_to_folder(key):
-    #     path_helper = './lib/paths.txt'
-    #     lst = {}
-    #     if os._exists(path_helper):
-    #         with open(path_helper, 'r') as json_file:
-    #             lst = json.load(json_file)
-    #     else:
-    #         img_folder_path = input('Folder path to images? start from C:/')
-    #         temp_lst = json.dumps({'images': img_folder_path}, indent=4)
-    #         f = open(path_helper, 'w')
-    #         f.write(temp_lst)
-    #         f.close()
-    #         FileHandler.path_to_folder()
