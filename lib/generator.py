@@ -58,9 +58,9 @@ class Generator:
             self.get_rand_item(key)
         self.print_result()
 
-    def generate_multiple(self, how_many=None):
+    def generate_multiple(self, how_many=None, key='items'):
         for i in range(how_many):
-            self.get_rand_item(self.ITEMS)
+            self.get_rand_item(key)
 
     def print_result(self):
         print_result(self.rand_items, self.context)

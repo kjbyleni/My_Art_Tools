@@ -1,9 +1,6 @@
 import os
 
-from .character_generator import CharacterGenerator
-from .item_generator import ItemGenerator
-from .env_generator import EnvironmentGenerator
-from lib.generator import Generator
+import ideas.ideas_factory as gen_factory
 
 EDIT_LIST = 'q'
 ITEM_GENERATOR = 'i'
@@ -55,22 +52,20 @@ def launch_draw_tool():
         tool_selected = input("Which Tool? ")
 
         if tool_selected == ENVIRONMENT_GENERATOR:
-            EnvironmentGenerator().generate()
+            gen_factory.get_env().generate()
 
         elif tool_selected == ITEM_GENERATOR:
             how_many = validate_is_number()
-            ItemGenerator().generate_multiple(how_many)
+            gen_factory.get_items().generate_multiple(how_many)
 
         elif tool_selected == CHARACTER_GENERATOR:
-            CharacterGenerator().generate()
+            gen_factory.get_character().generate()
 
         elif tool_selected == GENERATE_ALL:
-            EnvironmentGenerator().generate()
-            CharacterGenerator().generate()
-            ItemGenerator().generate_multiple(4)
+            gen_factory.get_all().generate()
 
         elif tool_selected == EDIT_LIST:
-            generator = Generator()
+            generator = gen_factory.get_all()
             # print keys
             print_items(generator.get_keys())
             key = input("\nWhich list to modify? ")
