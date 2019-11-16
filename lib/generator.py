@@ -35,7 +35,7 @@ class Generator:
             self.keys = []
 
     def get_keys(self):
-        return list(self.keys())
+        return list(self.keys)
 
     def export_lst(self, export_to=None):
         if export_to is None:

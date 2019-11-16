@@ -18,10 +18,6 @@ def test_init_default_context(gen):
     assert gen.context == 'general'
 
 
-def test_init_message(gen):
-    assert gen.message is not None
-
-
 def test_init_rand_items(gen):
     assert len(gen.rand_items) == 0
 
