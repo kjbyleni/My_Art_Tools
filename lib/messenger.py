@@ -1,7 +1,4 @@
 class Messenger:
-    DRAW = 'd'
-    PRACTICE = 'p'
-    YES = 'y'
 
     def __init__(self):
         pass
@@ -50,19 +47,7 @@ class Messenger:
     def too_many_attempts():
         print("Too many attempts.")
 
-    @staticmethod
-    def print_items(items):
-        for item in items:
-            print(f'\t\t{item}')
 
-    @staticmethod
-    def print_result(items, context):
-        print(
-            '\n\t',
-            f'---------   Creating your {context}  ---------'
-        )
-        Messenger.print_items(items)
-        print(f'\t -----------   {context} Created!   -----------\n')
 
     @staticmethod
     def closing_software():

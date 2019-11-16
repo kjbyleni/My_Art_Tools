@@ -1,20 +1,28 @@
 from practice import __main__ as practice_tool
 from ideas import __main__ as draw_tool
-from lib.messenger import Messenger
 
 
 def main():
-    msg = Messenger()
-    tool_selected = msg.tool_selection()
+    DRAW = 'd'
+    PRACTICE = 'p'
 
-    if tool_selected == msg.DRAW:
+    print("\n\n",
+          "Welcome to Kyle's art tools!",
+          "\n\t(d + ENTER) -- Draw",
+          "\n\t(p + ENTER) -- Practice"
+          )
+
+    tool_selected = input("Which Tool? ")
+
+    if tool_selected == DRAW:
         draw_tool.launch_draw_tool()
 
-    elif tool_selected == msg.PRACTICE:
+    elif tool_selected == PRACTICE:
         practice_tool.launch_practice_tool()
 
     else:
-        msg.closing_software()
+        print('Closing software')
+        exit()
 
 
 if __name__ == '__main__':

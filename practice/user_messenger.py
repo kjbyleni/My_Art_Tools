@@ -7,12 +7,7 @@ class UserMessenger(Messenger):
     STUDY = 's'
 
     def tool_selection(self):
-        print("\n\n",
-              "Welcome to Kyle's Practice tools.",
-              "\n\t(f + ENTER) -- Figure Drawing",
-              "\n\t(e + ENTER) -- Exercise",
-              "\n\t(s + ENTER) -- Study",
-              "\n\t(any other key) -- Exit")
+
         return UserMessenger.what_todo()
 
     @staticmethod
