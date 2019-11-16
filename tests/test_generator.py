@@ -1,10 +1,9 @@
-import pytest
 import os
 import random
-import subprocess
+
+import pytest
 
 from lib.generator import Generator
-
 
 KEYS = ['shapes', 'physical nature', 'distinguishing characteristic', 'items', 'season', 'time', 'inside', 'outside']
 

@@ -1,5 +1,4 @@
 import json
-import os
 
 from random import randint
 
@@ -74,4 +73,3 @@ class Generator:
         for item in file_array:
             stripped_array.append(item.strip())
         return stripped_array
-

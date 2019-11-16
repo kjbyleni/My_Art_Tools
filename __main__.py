@@ -1,11 +1,11 @@
-from practice import __main__ as practice_tool
 from ideas import __main__ as draw_tool
+from practice import __main__ as practice_tool
+
+DRAW = 'd'
+PRACTICE = 'p'
 
 
 def main():
-    DRAW = 'd'
-    PRACTICE = 'p'
-
     print("\n\n",
           "Welcome to Kyle's art tools!",
           "\n\t(d + ENTER) -- Draw",
