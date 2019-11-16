@@ -1,6 +1,6 @@
 from lib.generator import Generator
 
-IDEA_PATH = './ideas/ideas.txt'
+IDEA_PATH = './ideas/ideas.json'
 
 
 def get_items(idea_path=IDEA_PATH):

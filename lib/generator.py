@@ -6,7 +6,7 @@ import lib.utils as utils
 
 class Generator:
 
-    def __init__(self, context='general', keys=[], idea_path='./ideas/ideas.txt'):
+    def __init__(self, idea_path: str, context='general', keys=[]):
         self.idea_path = idea_path
         self.context = context
         self.rand_items = []

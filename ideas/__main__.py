@@ -42,11 +42,12 @@ def launch_draw_tool():
             gen_factory.get_all().generate()
 
         elif tool_selected == EDIT_LIST:
+            tmp_path = './tmp_path.json'
             generator = gen_factory.get_all()
             # print keys
             utils.print_items(generator.get_keys())
             key = input("\nWhich list to modify? ")
-            f = open(generator.temp_path, 'w')
+            f = open(tmp_path, 'w')
             if key in generator.lst:
                 for item in sorted(generator.lst[key]):
                     # print existing list
@@ -54,11 +55,11 @@ def launch_draw_tool():
                 f.close()
 
                 # open notepad.exe allow user to edit.  Wait until done editing
-                os.system(f'notepad.exe {generator.temp_path}')
-                generator.lst[key] = generator.convert_file_to_array(generator.temp_path)
+                os.system(f'notepad.exe {tmp_path}')
+                generator.lst[key] = generator.convert_file_to_array(tmp_path)
                 generator.export_lst()
-                if os.path.exists(generator.temp_path):
-                    os.remove(generator.temp_path)
+                if os.path.exists(tmp_path):
+                    os.remove(tmp_path)
                     print("SUCCESS!")
 
         else:

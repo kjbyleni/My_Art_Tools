@@ -2,11 +2,11 @@ from lib.generator import Generator
 
 
 class PracticeGenerator(Generator):
-    def __init__(self, context='general', keys=[], idea_path='./practice/practice_ideas.txt'):
+    def __init__(self, idea_path: str, context='general', keys=[]):
         Generator.__init__(self, context=context, keys=keys, idea_path=idea_path)
 
 
-IDEA_PATH = './practice/practice_ideas.txt'
+IDEA_PATH = './practice/practice_ideas.json'
 
 
 def get_study(idea_path=IDEA_PATH):
