@@ -8,7 +8,6 @@ ITEM_GENERATOR = 'i'
 CHARACTER_GENERATOR = 'c'
 ENVIRONMENT_GENERATOR = 'e'
 GENERATE_ALL = 'a'
-YES = 'y'
 
 
 def welcome():
@@ -20,13 +19,14 @@ def welcome():
           f"\n\t({GENERATE_ALL} + ENTER) -- Generate all",
           f"\n\t({EDIT_LIST} + ENTER) -- Edit Lists",
           "\n\t(any other key) -- Exit")
+    return input('Which Tool? ')
 
 
 def launch_draw_tool():
-    another_tool = YES
-    while another_tool == YES:
-        welcome()
-        tool_selected = input("Which Tool? ")
+    options = [EDIT_LIST, ITEM_GENERATOR, CHARACTER_GENERATOR, ENVIRONMENT_GENERATOR, GENERATE_ALL]
+    tool_selected = welcome()
+
+    while tool_selected in options:
 
         if tool_selected == ENVIRONMENT_GENERATOR:
             gen_factory.get_env().generate()
@@ -44,7 +44,7 @@ def launch_draw_tool():
         elif tool_selected == EDIT_LIST:
             generator = gen_factory.get_all()
             # print keys
-            print_items(generator.get_keys())
+            utils.print_items(generator.get_keys())
             key = input("\nWhich list to modify? ")
             f = open(generator.temp_path, 'w')
             if key in generator.lst:
@@ -65,8 +65,7 @@ def launch_draw_tool():
             print('Closing software')
             exit()
 
-        print("Good Luck!")
-        another_tool = input("would you like another tool? (y,n)")
+        tool_selected = welcome()
 
 
 if __name__ == '__main__':

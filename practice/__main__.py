@@ -16,14 +16,16 @@ def welcome():
           "\n\t(e + ENTER) -- Exercise",
           "\n\t(s + ENTER) -- Study",
           "\n\t(any other key) -- Exit")
+    return input('Which tool? ')
 
 
 def launch_practice_tool():
 
-    another_tool = YES
-    while another_tool == YES:
+    options = [FIGURE_DRAWING, EXERCISE, STUDY]
+    tool_selected = welcome()
+
+    while tool_selected in options:
         welcome()
-        tool_selected = input("Which Tool? ")
 
         if tool_selected == FIGURE_DRAWING:
             with open('path.txt', "r") as paths_file:
@@ -42,7 +44,7 @@ def launch_practice_tool():
             print('Closing software')
             exit()
 
-        another_tool = input("would you like another tool? (y,n)")
+        tool_selected = welcome()
 
 
 if __name__ == '__main__':
