@@ -19,8 +19,7 @@ def print_result(items, context):
 
 class Generator:
 
-    def __init__(self, context='general', keys=[], idea_path='./ideas/ideas.txt', temp_path='./ideas/tmp.txt'):
-        self.temp_path = temp_path
+    def __init__(self, context='general', keys=[], idea_path='./ideas/ideas.txt'):
         self.idea_path = idea_path
         self.context = context
         self.rand_items = []

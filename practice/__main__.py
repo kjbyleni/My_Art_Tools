@@ -1,6 +1,6 @@
-from practice.exercise_generator import Exercise
 from practice.generate_pic import FigureDrawing
-from practice.study_generator import Study
+
+import practice.factory as practice_factory
 
 FIGURE_DRAWING = 'f'
 EXERCISE = 'e'
@@ -8,7 +8,7 @@ STUDY = 's'
 YES = 'y'
 
 
-def launch_practice_tool():
+def welcome():
     print("\n\n",
           "Welcome to Kyle's Practice tools.",
           "\n\t(f + ENTER) -- Figure Drawing",
@@ -16,8 +16,12 @@ def launch_practice_tool():
           "\n\t(s + ENTER) -- Study",
           "\n\t(any other key) -- Exit")
 
+
+def launch_practice_tool():
+
     another_tool = YES
     while another_tool == YES:
+        welcome()
         tool_selected = input("Which Tool? ")
 
         if tool_selected == FIGURE_DRAWING:
@@ -27,12 +31,10 @@ def launch_practice_tool():
                 fig.generate_pic()
 
         elif tool_selected == EXERCISE:
-            exercise = Exercise()
-            exercise.generate()
+            practice_factory.get_exercise().generate()
 
         elif tool_selected == STUDY:
-            study = Study()
-            study.generate()
+            practice_factory.get_study().generate()
 
         else:
             print('Closing software')
