@@ -1,3 +1,6 @@
+import os
+
+
 def print_items(items):
     for item in items:
         print(f'\t\t{item}')
@@ -23,3 +26,25 @@ def validate_is_number(how_many=None, attempt=0):
             print("too many attempts!")
         else:
             validate_is_number(how_many=None, attempt=attempt + 1)
+
+
+# edit_file requires a generator object
+def edit_file(generator):
+    tmp_path = './tmp_path.json'
+    # print keys
+    print_items(generator.get_keys())
+    key = input("\nWhich list to modify? ")
+    f = open(tmp_path, 'w')
+    if key in generator.lst:
+        for item in sorted(generator.lst[key]):
+            # print existing list
+            f.write(f'{item}\n')
+        f.close()
+
+        # open notepad.exe allow user to edit.  Wait until done editing
+        os.system(f'notepad.exe {tmp_path}')
+        generator.lst[key] = generator.convert_file_to_array(tmp_path)
+        generator.export_lst()
+        if os.path.exists(tmp_path):
+            os.remove(tmp_path)
+            print("SUCCESS!")

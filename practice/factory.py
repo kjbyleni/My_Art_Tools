@@ -22,3 +22,6 @@ def get_exercise(idea_path=IDEA_PATH):
     keys = [exercise]
     return PracticeGenerator(context='Exercise', keys=keys, idea_path=idea_path)
 
+
+def get_all(idea_path=IDEA_PATH):
+    return PracticeGenerator(context='Practice', idea_path=idea_path)

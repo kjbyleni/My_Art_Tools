@@ -1,47 +1,47 @@
 {
     "exercise": [
+        "Color -- Practice choosing color",
         "Composition -- Practice using different composition techniques",
         "Contour -- Draw the contour",
         "Negative Space -- Draw the negative space.",
-        "Shading -- Practice Shading using different shading techniques",
         "Perspective -- Practice drawing 2D and 3D objects in perspective rotating them on the canvas",
-        "Color -- Practice choosing color"
+        "Shading -- Practice Shading using different shading techniques"
     ],
     "study": [
-        "Still Life -- Study from still life",
-        "Human Figure -- Study the Human Figure",
-        "Human Anatomy -- Study human anatomy",
-        "Dog Anatomy -- Study dog anatomy",
         "Cat Anatomy -- Study cat anatomy",
-        "Fashion -- Study Fashion",
+        "Clothing -- Study fabric on the human or animal figures",
+        "Dog Anatomy -- Study dog anatomy",
         "Fabrics -- Study fabrics",
+        "Fashion -- Study Fashion",
         "Glass -- Study the effects of glass",
-        "Clothing -- Study fabric on the human or animal figures"
+        "Human Anatomy -- Study human anatomy",
+        "Human Figure -- Study the Human Figure",
+        "Still Life -- Study from still life"
     ],
     "anatomy": [
-        "Hair",
-        "Eyes",
-        "Nose",
-        "Ears",
-        "Mouth",
-        "Face",
         "Arm",
-        "Leg",
-        "torso",
-        "Shoulders",
-        "Pecks",
-        "Stomach",
-        "Pelvis",
         "Back",
-        "Neck",
+        "Ears",
+        "Eyes",
+        "Face",
+        "Feet",
+        "Hair",
         "Hands",
-        "Feet"
+        "Leg",
+        "Mouth",
+        "Neck",
+        "Nose",
+        "Pecks",
+        "Pelvis",
+        "Shoulders",
+        "Stomach",
+        "torso"
     ],
     "emotion": [
-        "Laughing",
         "Crying",
-        "Hope",
         "Fear",
-        "Joy"
+        "Hope",
+        "Joy",
+        "Laughing"
     ]
 }

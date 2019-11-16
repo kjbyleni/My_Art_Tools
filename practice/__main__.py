@@ -1,8 +1,8 @@
+import lib.utils as utils
+import practice.factory as practice_factory
 from practice.generate_pic import FigureDrawing
 
-import practice.factory as practice_factory
-import lib.utils as utils
-
+EDIT_LIST = 'q'
 FIGURE_DRAWING = 'f'
 EXERCISE = 'e'
 STUDY = 's'
@@ -15,13 +15,13 @@ def welcome():
           "\n\t(f + ENTER) -- Figure Drawing",
           "\n\t(e + ENTER) -- Exercise",
           "\n\t(s + ENTER) -- Study",
+          "\n\t(q + ENTER) -- Edit list",
           "\n\t(any other key) -- Exit")
     return input('Which tool? ')
 
 
 def launch_practice_tool():
-
-    options = [FIGURE_DRAWING, EXERCISE, STUDY]
+    options = [FIGURE_DRAWING, EXERCISE, STUDY, EDIT_LIST]
     tool_selected = welcome()
 
     while tool_selected in options:
@@ -37,6 +37,9 @@ def launch_practice_tool():
 
         elif tool_selected == STUDY:
             practice_factory.get_study().generate()
+
+        elif tool_selected == EDIT_LIST:
+            utils.edit_file(practice_factory.get_all())
 
         else:
             print('Closing software')
