@@ -29,17 +29,17 @@ def launch_draw_tool():
     while tool_selected in options:
 
         if tool_selected == ENVIRONMENT_GENERATOR:
-            gen_factory.get_env().generate()
+            gen_factory.get_env().get_rand_image()
 
         elif tool_selected == ITEM_GENERATOR:
             how_many = utils.validate_is_number()
             gen_factory.get_items().generate_multiple(how_many)
 
         elif tool_selected == CHARACTER_GENERATOR:
-            gen_factory.get_character().generate()
+            gen_factory.get_character().get_rand_image()
 
         elif tool_selected == GENERATE_ALL:
-            gen_factory.get_all().generate()
+            gen_factory.get_all().get_rand_image()
 
         elif tool_selected == EDIT_LIST:
             utils.edit_file(gen_factory.get_all())
