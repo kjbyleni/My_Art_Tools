@@ -62,10 +62,10 @@ def launch_practice_tool():
             stage(program)
 
         elif tool_selected == EXERCISE:
-            practice_factory.get_exercise().get_rand_image()
+            practice_factory.get_exercise().generate()
 
         elif tool_selected == STUDY:
-            practice_factory.get_study().get_rand_image()
+            practice_factory.get_study().generate()
 
         elif tool_selected == EDIT_LIST:
             utils.edit_file(practice_factory.get_all())
