@@ -1,6 +1,5 @@
 import lib.utils as utils
 import practice.factory as practice_factory
-from practice.generate_pic import FigureDrawing
 from practice.picture_viewer import PictureViewer
 
 EDIT_LIST = 'q'
@@ -21,15 +20,46 @@ def welcome():
     return input('Which tool? ')
 
 
+def welcome_figure_drawing():
+    print(
+        "\n\n",
+        "Figure drawing. which program would you like?",
+        "\n\t(1 + ENTER) -- 5 X 1min, 5 X 2min -- 15 min",
+        "\n\t(2 + ENTER) -- 5 X 1min, 5 X 2min, 6 X 5min -- 45min",
+        "\n\t(3 + ENTER) -- 5 X 2min, 2 X 5min, 1 X 15min -- 45",
+        "\n\t(4 + ENTER) -- 1 X 45min",
+        "\n\t(5 + Enter) -- Custom"
+    )
+    return input("Which tool? ")
+
+
+def stage(program=[]):
+    path = utils.get_path()
+    picture_viewer = PictureViewer(path)
+    picture_viewer.show(program)
+
+
 def launch_practice_tool():
     options = [FIGURE_DRAWING, EXERCISE, STUDY, EDIT_LIST]
     tool_selected = welcome()
 
     while tool_selected in options:
         if tool_selected == FIGURE_DRAWING:
-            with open('path.txt', "r") as paths_file:
-                file_array = paths_file.readlines()
-            PictureViewer.get_instance(file_array[0]).show()
+            tool_selected = welcome_figure_drawing()
+            # (time, how many)
+            if tool_selected == "1":
+                program = [(1, 5), (2, 5)]
+            elif tool_selected == "2":
+                program = [(1, 5), (2, 5), (6, 5)]
+            elif tool_selected == "3":
+                program = [(2, 5), (5, 2), (15, 1)]
+            elif tool_selected == "4":
+                program = [(45, 1)]
+            else:
+                time_between = utils.validate_is_number(msg="Time Between Images? ")
+                how_many = utils.validate_is_number(msg="How Many Images? ")
+                program = [(time_between, how_many)]
+            stage(program)
 
         elif tool_selected == EXERCISE:
             practice_factory.get_exercise().get_rand_image()
