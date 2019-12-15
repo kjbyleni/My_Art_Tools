@@ -16,7 +16,7 @@ class PictureViewer:
         self.total_images_to_show_for_stage = 10
         self.time_between_images = time_between_images * MINUTES
 
-        #setup picture viewer
+        # setup picture viewer
         self.screen = Screen(pygame.display)
         self.figures = FigureDrawing(images_path)
         self.clock = pygame.time.Clock()
