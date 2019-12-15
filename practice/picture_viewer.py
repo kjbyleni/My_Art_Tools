@@ -29,6 +29,7 @@ class PictureViewer:
 
             for event in pygame.event.get():
                 self.screen.toggle_full_screen(event)
+                sequences.handle_events_for_sequence(event, self.time)
                 if event.type == pygame.QUIT:
                     self.crashed = True
 

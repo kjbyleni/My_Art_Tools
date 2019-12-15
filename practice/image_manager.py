@@ -18,10 +18,20 @@ class ImageManager:
         scale_width = w / width
         scale_height = h / height
         if width > height:  # landscape
-            size = int(width * scale_width), int(height * scale_width)
+            height_with_scaled_width = int(height * scale_width)
+            if height_with_scaled_width > h:
+                size = int(width * scale_height), int(height * scale_height)
+            else:
+                size = int(width * scale_width), height_with_scaled_width
         else:
             size = int(width * scale_height), int(height * scale_height)
         return pygame.transform.scale(img, size)
+
+    def get_previous_image(self):
+        if len(self.images_displayed) > 1:
+            return self.images_displayed[-2]
+        else:
+            return self.images_displayed[-1]
 
     def build_next_image(self):
         img_to_show = self.images.get_rand_image()
@@ -92,3 +102,11 @@ class ImageSequenceList:
             else:
                 self.sequence.image_to_display_for_sequence_time(time, self.img_manager)
         return False
+
+    def handle_events_for_sequence(self, event, time: Time):
+        if event.type is pygame.KEYDOWN and event.key == pygame.K_RIGHT:
+            self.img_manager.build_next_image()
+            time.update_ticks()
+        elif event.type is pygame.KEYDOWN and event.key == pygame.K_LEFT:
+            self.img_manager.current_img = self.img_manager.get_previous_image()
+            time.update_ticks()

@@ -4,7 +4,7 @@ import pygame
 class Screen:
 
     def __init__(self, display: pygame.display):
-        self.default_size = (1080, 900)
+        self.default_size = (1500, 1000)
         self.offset = 40
         self.full_screen = (display.Info().current_w, display.Info().current_h)
         self.display = display.set_mode(self.full_screen, pygame.FULLSCREEN)
