@@ -18,8 +18,11 @@ class Screen:
             return self.default_size
 
     def toggle_full_screen(self, event):
-        if event.type is pygame.KEYDOWN and event.key == pygame.K_f:
+        if event.type is pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             if self.display.get_flags() & pygame.FULLSCREEN:
                 self.display = pygame.display.set_mode(self.default_size)
             else:
                 self.display = pygame.display.set_mode(self.full_screen, pygame.FULLSCREEN)
+
+    # def run_per_tick(self):
+    #     self.display.fill((0, 0, 0))

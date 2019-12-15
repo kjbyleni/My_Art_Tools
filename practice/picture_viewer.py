@@ -83,7 +83,6 @@ class PictureViewer:
             self.stage(self.stages[0])
 
         while not self.crashed:
-            self.screen.display.fill((0, 0, 0))
             self.display_images()
             pygame.display.update()
             self.clock.tick(20)
