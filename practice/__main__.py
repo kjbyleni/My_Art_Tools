@@ -72,7 +72,7 @@ def launch_practice_tool():
         elif tool_selected == LANDSCAPE_DRAWING:
             tool_selected = welcome_image_drawing('Landscape Drawing')
             picture_viewer = PictureViewer()
-            picture_viewer.show(FIGURE_DRAWING_INDEX, get_program(tool_selected))
+            picture_viewer.show(LANDSCAPE_DRAWING_INDEX, get_program(tool_selected))
 
         elif tool_selected == EXERCISE:
             practice_factory.get_exercise().generate()
