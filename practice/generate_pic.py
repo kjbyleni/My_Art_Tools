@@ -13,7 +13,7 @@ class FigureDrawing:
                                                       with_extensions=self.img_exts)
 
     def get_rand_image(self):
-        rand_num = randint(0, (len(self.files_in_path) -1))
+        rand_num = randint(0, (len(self.files_in_path) - 1))
         return self.files_in_path[rand_num]
 
     def get_rand_images(self, how_many: int):

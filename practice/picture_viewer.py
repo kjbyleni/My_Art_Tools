@@ -1,10 +1,8 @@
 import pygame
 
 from practice.generate_pic import FigureDrawing
+from practice.screen import Screen
 
-WIDTH = 1080
-HEIGHT = 900
-OFFSET = 40
 MINUTES = 1000 * 60
 
 
@@ -19,27 +17,26 @@ class PictureViewer:
         self.time_between_images = time_between_images * MINUTES
 
         #setup picture viewer
+        self.screen = Screen(pygame.display)
         self.figures = FigureDrawing(images_path)
-        self.display = pygame.display
-        self.display.set_caption("Figure practice")
-        self.game_display = self.display.set_mode((WIDTH + OFFSET, HEIGHT + OFFSET))
         self.clock = pygame.time.Clock()
         self.crashed = False
         self.old_ticks = None
         self.current_img = None
 
     def display_image(self, image_to_display):
+        w, h = self.screen.get_active_size()
         width, height = image_to_display.get_rect().size
-        width_diff = (WIDTH + OFFSET) - width
-        height_diff = (HEIGHT + OFFSET) - height
+        width_diff = w - width
+        height_diff = h - height
         centered_size = int(width_diff / 2), int(height_diff / 2)
-        self.game_display.blit(image_to_display, centered_size)
+        self.screen.display.blit(image_to_display, centered_size)
 
-    @staticmethod
-    def scale_image(img: pygame.image, ideal_width=WIDTH, ideal_height=HEIGHT):
+    def scale_image(self, img: pygame.image):
+        w, h = self.screen.get_active_size()
         width, height = img.get_rect().size
-        scale_width = ideal_width / width
-        scale_height = ideal_height / height
+        scale_width = w / width
+        scale_height = h / height
         if width > height:  # landscape
             size = int(width * scale_width), int(height * scale_width)
         else:
@@ -86,12 +83,13 @@ class PictureViewer:
             self.stage(self.stages[0])
 
         while not self.crashed:
-            self.game_display.fill((0, 0, 0))
+            self.screen.display.fill((0, 0, 0))
             self.display_images()
-            self.display.update()
+            pygame.display.update()
             self.clock.tick(20)
 
             for event in pygame.event.get():
+                self.screen.toggle_full_screen(event)
                 if event.type == pygame.QUIT:
                     self.crashed = True
 

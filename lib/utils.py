@@ -4,7 +4,7 @@ import os
 def get_path(path_index: int):
     with open('path.txt', "r") as paths_file:
         file_array = paths_file.readlines()
-    return file_array[path_index]
+    return file_array[path_index].rstrip()
 
 
 def print_items(items):
