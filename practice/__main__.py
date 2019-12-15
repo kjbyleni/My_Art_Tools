@@ -66,11 +66,13 @@ def launch_practice_tool():
     while tool_selected in options:
         if tool_selected == FIGURE_DRAWING:
             tool_selected = welcome_image_drawing('Figure Drawing')
-            stage(path_index=FIGURE_DRAWING_INDEX, program=get_program(tool_selected))
+            picture_viewer = PictureViewer()
+            picture_viewer.show(FIGURE_DRAWING_INDEX, get_program(tool_selected))
 
         elif tool_selected == LANDSCAPE_DRAWING:
             tool_selected = welcome_image_drawing('Landscape Drawing')
-            stage(path_index=LANDSCAPE_DRAWING_INDEX, program=get_program(tool_selected))
+            picture_viewer = PictureViewer()
+            picture_viewer.show(FIGURE_DRAWING_INDEX, get_program(tool_selected))
 
         elif tool_selected == EXERCISE:
             practice_factory.get_exercise().generate()

@@ -24,5 +24,24 @@ class Screen:
             else:
                 self.display = pygame.display.set_mode(self.full_screen, pygame.FULLSCREEN)
 
-    # def run_per_tick(self):
-    #     self.display.fill((0, 0, 0))
+
+class Time:
+    MINUTES = 1000 * 60
+
+    def __init__(self, time_between_images):
+        self.time = pygame.time
+        self.old_ticks = pygame.time.get_ticks()
+        self.clock = pygame.time.Clock()
+        self.time_between_images = time_between_images * Time.MINUTES
+
+    def set_tick_speed(self, ticks_per_sec: int):
+        self.clock.tick(ticks_per_sec)
+
+    def get_ticks(self):
+        return self.time.get_ticks()
+
+    def update_ticks(self):
+        self.old_ticks = self.get_ticks()
+
+    def set_time_between_images(self, time_between_images):
+        self.time_between_images = time_between_images * Time.MINUTES
