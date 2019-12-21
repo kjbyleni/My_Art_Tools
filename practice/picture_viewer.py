@@ -24,7 +24,6 @@ class PictureViewer:
         while not self.crashed:
             self.screen.display.fill((0, 0, 0))
             self.crashed = sequences.execute_sequence_list(self.time)
-            self.time.set_tick_speed(20)
             pygame.display.update()
 
             for event in pygame.event.get():

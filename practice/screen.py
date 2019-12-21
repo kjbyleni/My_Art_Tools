@@ -32,6 +32,7 @@ class Time:
         self.time = pygame.time
         self.old_ticks = pygame.time.get_ticks()
         self.clock = pygame.time.Clock()
+        self.clock.tick(60)
         self.time_between_images = time_between_images * Time.MINUTES
 
     def set_tick_speed(self, ticks_per_sec: int):
