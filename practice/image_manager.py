@@ -80,10 +80,10 @@ class ImageSequenceList:
         self.sequence = None
 
     def is_end_of_sequence_list(self):
-        return len(self.sequence_list) > 0
+        return len(self.sequence_list) == 0
 
     def execute_sequence(self, time: Time):
-        if self.is_end_of_sequence_list():
+        if not self.is_end_of_sequence_list():
             time_between, total_images = self.sequence_list[0]
             self.sequence = ImageSequence(time_between, total_images)
             self.img_manager.build_next_image()
