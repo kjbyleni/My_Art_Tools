@@ -35,14 +35,9 @@ class Time:
         self.clock.tick(60)
         self.time_between_images = time_between_images * Time.MINUTES
 
-    def set_tick_speed(self, ticks_per_sec: int):
-        self.clock.tick(ticks_per_sec)
-
     def get_ticks(self):
         return self.time.get_ticks()
 
     def update_ticks(self):
         self.old_ticks = self.get_ticks()
-
-    def set_time_between_images(self, time_between_images):
-        self.time_between_images = time_between_images * Time.MINUTES
+        return self.old_ticks
