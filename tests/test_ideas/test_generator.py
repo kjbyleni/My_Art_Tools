@@ -10,6 +10,8 @@ KEYS = ['shapes', 'physical nature', 'distinguishing characteristic', 'items', '
 
 @pytest.fixture
 def gen():
+    if os.getcwd().endswith('tests'):  # use to run tests from ./tests/ folder
+        os.chdir("./test_ideas/")
     return Generator(idea_path="./test_generator_data/test_ideas.txt")
 
 
