@@ -2,3 +2,4 @@
 __pycache__/
 venv/
 path.txt
+.pytest_cache/
