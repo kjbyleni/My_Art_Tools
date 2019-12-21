@@ -1,6 +1,6 @@
 import pygame
 
-from practice.screen import Screen, Time
+from practice.pygame_utils import Screen, Time
 from practice.image_manager import ImageSequenceList
 
 

@@ -1,6 +1,6 @@
 import pygame
 import pytest
-from practice.screen import Screen, Time
+from practice.pygame_utils import Screen, Time
 
 
 @pytest.fixture

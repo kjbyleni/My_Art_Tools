@@ -2,7 +2,7 @@ import pygame
 
 import lib.utils as utils
 from practice.generate_pic import FigureDrawing
-from practice.screen import Screen, Time
+from practice.pygame_utils import Screen, Time
 
 
 class ImageManager:
