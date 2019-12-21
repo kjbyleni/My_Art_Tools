@@ -49,6 +49,8 @@ class ImageManager:
         return int(width_diff / 2), int(height_diff / 2)
 
     def display_current_image(self):
+        if self.current_img is None:
+            self.build_next_image()
         centered_size = self.get_coords_to_center_image(self.current_img.get_rect().size)
         self.screen.display.blit(self.current_img, centered_size)
 
@@ -86,7 +88,6 @@ class ImageSequenceList:
         if not self.is_end_of_sequence_list():
             time_between, total_images = self.sequence_list[0]
             self.sequence = ImageSequence(time_between, total_images)
-            self.img_manager.build_next_image()
             self.sequence.image_to_display_for_sequence_time(time, self.img_manager)
 
     def execute_sequence_list(self, time: Time):
