@@ -1,7 +1,7 @@
 import pygame
 
 from practice.pygame_utils import Screen, Time
-from practice.image_manager import ImageSequenceList
+from practice.sequence_handler import ImageSequenceList
 
 
 class PictureViewer:

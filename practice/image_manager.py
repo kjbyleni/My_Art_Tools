@@ -1,13 +1,21 @@
+from enum import Enum
+from random import randint
+
+import os
 import pygame
 
 import lib.utils as utils
-from practice.generate_pic import FigureDrawing
-from practice.pygame_utils import Screen, Time
+from practice.pygame_utils import Screen
+
+
+class PathOptions(Enum):
+    FIGURE = 0
+    LANDSCAPE = 1
 
 
 class ImageManager:
-    def __init__(self, images_path, screen: Screen):
-        self.images = FigureDrawing(images_path)
+    def __init__(self, images_path_index: int, screen: Screen):
+        self.images = Images(images_path_index)
         self.screen = screen
         self.current_img = None
         self.images_displayed = []
@@ -55,59 +63,37 @@ class ImageManager:
         self.screen.display.blit(self.current_img, centered_size)
 
 
-class ImageSequence:
-    def __init__(self, time_between_images: int, total_images_to_show: int):
-        self.time_between_images = time_between_images,
-        self.total_images_to_show = total_images_to_show
-        self.images_shown = 0
+class Images:
 
-    def is_sequence_done(self):
-        return self.images_shown >= self.total_images_to_show
+    def __init__(self, image_path_index: int):
+        self.path_to_pics = utils.get_path(path_index=image_path_index)
+        self.img_exts = ["jpg", "jpeg", "png"]
+        self.exclude = ["PoseOverview"]
+        self.files_in_path = self.get_files_in_folder(exclude=self.exclude,
+                                                      with_extensions=self.img_exts)
 
-    def image_to_display_for_sequence_time(self, time: Time, img_manager: ImageManager):
-        time_elapsed_between_image = time.get_ticks() - time.old_ticks
-        if time_elapsed_between_image >= time.time_between_images:
-            img_manager.build_next_image()
-            time.update_ticks()
-            self.images_shown += 1
-
-        img_manager.display_current_image()
-
-
-class ImageSequenceList:
-    def __init__(self, sequence_list, path_index, screen: Screen):
-        self.img_path = utils.get_path(path_index=path_index)
-        self.img_manager = ImageManager(self.img_path, screen)
-        self.sequence_list = sequence_list
-        self.sequence = None
-
-    def is_end_of_sequence_list(self):
-        return len(self.sequence_list) == 0
-
-    def execute_sequence(self, time: Time):
-        if not self.is_end_of_sequence_list():
-            time_between, total_images = self.sequence_list[0]
-            self.sequence = ImageSequence(time_between, total_images)
-            self.sequence.image_to_display_for_sequence_time(time, self.img_manager)
-
-    def execute_sequence_list(self, time: Time):
-        if self.sequence is None:
-            self.execute_sequence(time)
+    def get_rand_image(self):
+        files_len = len(self.files_in_path)
+        if files_len > 1:
+            rand_num = randint(0, (len(self.files_in_path) - 1))
+        elif files_len == 1:
+            rand_num = 0
         else:
-            if self.sequence.is_sequence_done():
-                if self.is_end_of_sequence_list():
-                    return True
-                else:
-                    self.sequence_list.pop(0)
-                    self.execute_sequence(time)
-            else:
-                self.sequence.image_to_display_for_sequence_time(time, self.img_manager)
-        return False
+            raise Exception("No files were found! Look at path and try again.")
+        return self.files_in_path[rand_num]
 
-    def handle_events_for_sequence(self, event, time: Time):
-        if event.type is pygame.KEYDOWN and event.key == pygame.K_RIGHT:
-            self.img_manager.build_next_image()
-            time.update_ticks()
-        elif event.type is pygame.KEYDOWN and event.key == pygame.K_LEFT:
-            self.img_manager.current_img = self.img_manager.get_previous_image()
-            time.update_ticks()
+    def get_files_in_folder(self, exclude=['PoseOverview'], with_extensions=['jpg']):
+        files_in_path = []
+        if os.path.isfile(self.path_to_pics):
+            files_in_path.append(self.path_to_pics)
+        elif os.path.isdir(self.path_to_pics):
+            for r, d, f in os.walk(self.path_to_pics):
+                for file in f:
+                    joined_file = os.path.join(r, file)
+                    if any(ext in joined_file for ext in with_extensions):
+                        if not any(substring in joined_file for substring in exclude):
+                            files_in_path.append(joined_file)
+        else:
+            raise Exception("No path was found!  Cannot locate files in folder.")
+
+        return files_in_path

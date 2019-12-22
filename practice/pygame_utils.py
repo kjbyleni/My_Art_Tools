@@ -3,11 +3,14 @@ import pygame
 
 class Screen:
 
-    def __init__(self, display: pygame.display):
+    def __init__(self, display: pygame.display, full_screen_mode=True):
         self.default_size = (1500, 1000)
         self.offset = 40
         self.full_screen = (display.Info().current_w, display.Info().current_h)
-        self.display = display.set_mode(self.full_screen, pygame.FULLSCREEN)
+        if full_screen_mode:
+            self.display = display.set_mode(self.full_screen, pygame.FULLSCREEN)
+        else:
+            self.display = display.set_mode(self.default_size)
         pygame.display.set_caption("Image practice")
 
     def get_active_size(self):
