@@ -5,8 +5,6 @@ import os
 from practice.image_manager import Images, ImageManager
 from practice.pygame_utils import Screen
 
-if os.getcwd().endswith('tests'):  # use to run tests from ./tests/ folder
-    os.chdir("./test_practice/")
 
 @pytest.fixture
 def figure_image_gen():
