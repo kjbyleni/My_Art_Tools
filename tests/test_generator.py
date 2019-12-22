@@ -3,14 +3,15 @@ import random
 
 import pytest
 
-from lib.generator import Generator
+from lib.generator import Generator, utils
+from lib.utils import get_path
 
 KEYS = ['shapes', 'physical nature', 'distinguishing characteristic', 'items', 'season', 'time', 'inside', 'outside']
 
 
 @pytest.fixture
 def gen():
-    yield Generator(idea_path="./test_generator_data/test_ideas.txt")
+    yield Generator(idea_path=f"{get_path(8)}//test_ideas.txt")
 
 
 def test_init_default_context(gen):
@@ -43,10 +44,10 @@ def test_generate(gen):
 
 
 def test_export_unique_path():
-    export_file_path = './test_generator_data/exported.txt'
+    export_file_path = f'{get_path(8)}//exported.txt'
     assert not os.path.exists(export_file_path)
 
-    gen = Generator(idea_path='./test_generator_data/tst_export.txt')
+    gen = Generator(idea_path=f'{get_path(8)}//tst_export.txt')
     gen.export_lst(export_file_path)
     assert os.path.exists(export_file_path)
 
@@ -54,7 +55,7 @@ def test_export_unique_path():
 
 
 def test_export_default_path():
-    original_path = './test_generator_data/original.txt'
+    original_path = f'{get_path(8)}//original.txt'
     assert os.path.exists(original_path)
 
     gen = Generator(idea_path=original_path)
@@ -68,5 +69,5 @@ def test_export_default_path():
 
 def test_convert_file_to_array():
     expected = ['Hello', 'Please', 'Convert', 'Me', 'To', 'Array']
-    converted_file = Generator.convert_file_to_array('./test_generator_data/file_to_convert_to_array.txt')
+    converted_file = Generator.convert_file_to_array(f'{get_path(8)}//file_to_convert_to_array.txt')
     assert expected == converted_file

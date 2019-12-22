@@ -1,6 +1,7 @@
 import practice.factory as practice_factory
+from lib.utils import get_path
 
-IDEA_PATH = './test_generator_data/test_practice_ideas.txt'
+IDEA_PATH = f'{get_path(8)}//test_practice_ideas.txt'
 
 
 def test_study_keys():

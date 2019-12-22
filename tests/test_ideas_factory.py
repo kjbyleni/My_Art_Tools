@@ -1,6 +1,7 @@
 import ideas.factory as idea_factory
+from lib.utils import get_path
 
-IDEA_PATH = './test_generator_data/test_ideas.txt'
+IDEA_PATH = f'{get_path(8)}//test_ideas.txt'
 
 
 def test_items_keys():
