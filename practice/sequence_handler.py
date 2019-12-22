@@ -24,7 +24,7 @@ class ImageSequence:
 
 
 class ImageSequenceList:
-    def __init__(self, sequence_list, image_path_index: PathOptions, screen: Screen):
+    def __init__(self, sequence_list, image_path_index, screen: Screen):
         self.img_manager = ImageManager(image_path_index, screen)
         self.sequence_list = sequence_list
         self.sequence = None
@@ -43,10 +43,10 @@ class ImageSequenceList:
             self.execute_sequence(time)
         else:
             if self.sequence.is_sequence_done():
+                self.sequence_list.pop(0)
                 if self.is_end_of_sequence_list():
                     return True
                 else:
-                    self.sequence_list.pop(0)
                     self.execute_sequence(time)
             else:
                 self.sequence.image_to_display_for_sequence_time(time, self.img_manager)
