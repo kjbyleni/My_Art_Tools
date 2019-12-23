@@ -1,17 +1,62 @@
 #:kivy 1.11.1
 
-<ArtTools>:
-    ideas: draw_ideas
+<IdeasContainer>:
+    id: ideas_container
 
-    Label:
-        size: 20, 200
-        font_size: 12
-        right: root.right - 200
-        text: str(root.ideas.get_all())
+<HeaderLabel@Label>:
+    font_size: 20
+    size_hint: 1, .15
 
-    IdeasContainer:
-        id: draw_ideas
-        size: root.size
-        center_x: root.center_x
-        center_y: root.center_y
+<IdeasButton>:
+    font_size: 12
+    halign: 'center'
+    valign: 'center'
+    shorten: True
 
+<CustStack@BoxLayout>:
+    orientation: 'vertical'
+
+<ArtToolsIdeasContainer>:
+    id: ideas_container
+    cols: 3
+    rows: 3
+    spacing: 10
+    padding: 10
+
+    CustStack:
+        HeaderLabel:
+            text: 'Environment'
+        IdeasButton:
+            text: 'Generate Environment'
+            on_press: self.get_environment()
+
+
+    CustStack:
+        HeaderLabel:
+            text: 'Character'
+        IdeasButton:
+            text: 'Generate Character'
+            on_press: self.get_character()
+
+
+    CustStack:
+        HeaderLabel:
+            text: 'Items'
+        IdeasButton:
+            text: 'Generate Items'
+            on_press: self.get_items()
+
+    CustStack:
+        HeaderLabel:
+            text: 'Exercise'
+        IdeasButton:
+            text: 'Generate Exercise'
+            on_press: self.get_exercise()
+
+
+    CustStack:
+        HeaderLabel:
+            text: 'Study'
+        IdeasButton:
+            text: 'Generate Study'
+            on_press: self.get_study()

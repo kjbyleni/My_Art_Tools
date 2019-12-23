@@ -37,12 +37,14 @@ class Generator:
         if self.lst[key][rand_num] in self.rand_items:
             rand_num = randint(0, (len(self.lst[key]) - 1))
         self.rand_items.append(self.lst[key][rand_num])
+        return self.lst[key][rand_num]
 
     def generate(self):
+        generated_msg = ''
         for key in self.keys:
-            self.get_rand_item(key)
+            generated_msg += f'{self.get_rand_item(key)} \n'
         self.print_result()
-        return self.rand_items
+        return generated_msg
 
     def generate_multiple(self, how_many=None, key='items'):
         for i in range(how_many):

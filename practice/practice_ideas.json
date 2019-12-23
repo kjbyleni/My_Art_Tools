@@ -1,22 +1,22 @@
 {
     "exercise": [
-        "Color -- Practice choosing color",
-        "Composition -- Practice using different composition techniques",
-        "Contour -- Draw the contour",
-        "Negative Space -- Draw the negative space.",
-        "Perspective -- Practice drawing 2D and 3D objects in perspective rotating them on the canvas",
-        "Shading -- Practice Shading using different shading techniques"
+        "Color",
+        "Composition Techniques",
+        "Contour",
+        "Negative Space",
+        "Perspective 3D Rotation",
+        "Shading Techniques"
     ],
     "study": [
-        "Cat Anatomy -- Study cat anatomy",
-        "Clothing -- Study fabric on the human or animal figures",
-        "Dog Anatomy -- Study dog anatomy",
-        "Fabrics -- Study fabrics",
-        "Fashion -- Study Fashion",
-        "Glass -- Study the effects of glass",
-        "Human Anatomy -- Study human anatomy",
-        "Human Figure -- Study the Human Figure",
-        "Still Life -- Study from still life"
+        "Cat Anatomy",
+        "Clothing",
+        "Dog Anatomy",
+        "Fabrics",
+        "Fashion",
+        "Glass",
+        "Human Anatomy",
+        "Human Figure",
+        "Still Life"
     ],
     "anatomy": [
         "Arm",
