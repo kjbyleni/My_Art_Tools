@@ -1,0 +1,17 @@
+#:kivy 1.11.1
+
+<ArtTools>:
+    ideas: draw_ideas
+
+    Label:
+        size: 20, 200
+        font_size: 12
+        right: root.right - 200
+        text: str(root.ideas.get_all())
+
+    IdeasContainer:
+        id: draw_ideas
+        size: root.size
+        center_x: root.center_x
+        center_y: root.center_y
+

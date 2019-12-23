@@ -42,6 +42,7 @@ class Generator:
         for key in self.keys:
             self.get_rand_item(key)
         self.print_result()
+        return self.rand_items
 
     def generate_multiple(self, how_many=None, key='items'):
         for i in range(how_many):

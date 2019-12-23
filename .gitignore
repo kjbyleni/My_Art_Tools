@@ -1,6 +1,7 @@
 .idea/
 __pycache__/
 venv/
+kivy_venv/
 path.txt
 .pytest_cache/
 .coverage
