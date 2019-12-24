@@ -1,18 +1,15 @@
 from kivy.app import App
+from kivy.clock import Clock
+from kivy.properties import (
+    NumericProperty, ObjectProperty
+)
+from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
-from kivy.properties import (
-    NumericProperty, ReferenceListProperty, ObjectProperty
-)
 
 import ideas.factory as gen_factory
 import practice.factory as practice_factory
-from practice.picture_viewer import PictureViewer
-from kivy.clock import Clock
-from kivy.uix.anchorlayout import AnchorLayout
-from kivy.uix.image import Image
-
 from practice.image_manager import Images
 
 FIGURE_DRAWING_INDEX = 0
@@ -22,7 +19,7 @@ MINUTES = 60
 
 class PictureViewer(AnchorLayout):
     time_between = NumericProperty(0)
-    index = NumericProperty(0)
+    file_index = NumericProperty(1)
     total_images_to_dislpay = NumericProperty(1)
     images_displayed = NumericProperty(1)
     images = ObjectProperty(None)
@@ -30,8 +27,20 @@ class PictureViewer(AnchorLayout):
 
     def get_image_source(self):
         if self.images is None:
-            self.images = Images(image_path_index=0)
+            self.images = Images(image_path_index=self.file_index)
         return self.images.get_rand_image()
+
+    def change_image(self):
+        for child in self.children:
+            child.source = self.images.get_rand_image()
+
+    def toggle_index(self):
+        if self.file_index == 0:
+            self.file_index = 1
+            self.images = Images(image_path_index=self.file_index)
+        else:
+            self.file_index = 0
+            self.images = Images(image_path_index=self.file_index)
 
     def update_images(self, dt):
         if self.images_displayed < self.total_images_to_dislpay:
@@ -44,7 +53,7 @@ class PictureViewer(AnchorLayout):
             self.parent.manager.current = "Kyle's Art Tools"
 
     def set_clock(self):
-        self.time_between *= 1
+        self.time_between *= MINUTES
         self.clock_event = Clock.schedule_interval(callback=self.update_images, timeout=self.time_between)
 
 
