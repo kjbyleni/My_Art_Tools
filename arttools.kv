@@ -13,50 +13,97 @@
     valign: 'center'
     shorten: True
 
-<CustStack@BoxLayout>:
+<VirticalBox@BoxLayout>:
     orientation: 'vertical'
 
-<ArtToolsIdeasContainer>:
-    id: ideas_container
-    cols: 3
-    rows: 3
-    spacing: 10
-    padding: 10
+<HorizontalBox@BoxLayout>:
+    orientation: 'horizontal'
 
-    CustStack:
-        HeaderLabel:
-            text: 'Environment'
-        IdeasButton:
-            text: 'Generate Environment'
-            on_press: self.get_environment()
+<ImageInput@TextInput>:
+    size_hint: .15, 1
+    width: 50
+    multiline: False
 
+<ArtToolsScreen>:
+    name: "Kyle's Art Tools"
+    ArtToolsIdeasContainer:
+        id: ideas_container
+        cols: 3
+        rows: 3
+        spacing: 10
+        padding: 10
 
-    CustStack:
-        HeaderLabel:
-            text: 'Character'
-        IdeasButton:
-            text: 'Generate Character'
-            on_press: self.get_character()
+        VirticalBox:
+            HeaderLabel:
+                text: 'Environment'
+            IdeasButton:
+                text: 'Generate Environment'
+                on_press: self.get_environment()
 
+        VirticalBox:
+            HeaderLabel:
+                text: 'Character'
+            IdeasButton:
+                text: 'Generate Character'
+                on_press: self.get_character()
 
-    CustStack:
-        HeaderLabel:
-            text: 'Items'
-        IdeasButton:
-            text: 'Generate Items'
-            on_press: self.get_items()
+        VirticalBox:
+            HeaderLabel:
+                text: 'Items'
+            IdeasButton:
+                text: 'Generate Items'
+                on_press: self.get_items()
 
-    CustStack:
-        HeaderLabel:
-            text: 'Exercise'
-        IdeasButton:
-            text: 'Generate Exercise'
-            on_press: self.get_exercise()
+        VirticalBox:
+            HeaderLabel:
+                text: 'Exercise'
+            IdeasButton:
+                text: 'Generate Exercise'
+                on_press: self.get_exercise()
 
+        VirticalBox:
+            HeaderLabel:
+                text: 'Study'
+            IdeasButton:
+                text: 'Generate Study'
+                on_press: self.get_study()
 
-    CustStack:
-        HeaderLabel:
-            text: 'Study'
-        IdeasButton:
-            text: 'Generate Study'
-            on_press: self.get_study()
+        VirticalBox:
+            HeaderLabel:
+                text: 'Image Gallery'
+
+            HorizontalBox:
+                size_hint: 1, .15
+                Label:
+                    text: 'Time Between Images'
+                ImageInput:
+                    text: "1"
+                    id: time_between_images
+            HorizontalBox:
+                size_hint: 1, .15
+                Label:
+                    text: 'Total Images'
+                ImageInput:
+                    text: "5"
+                    id: total_images_to_show
+            IdeasButton:
+                text: 'Figure Drawing'
+                on_press:
+                    root.manager.get_screen('Image Reference Viewer').ids.picture_viewer.time_between = time_between_images.text
+                    root.manager.get_screen('Image Reference Viewer').ids.picture_viewer.index = 0
+                    root.manager.get_screen('Image Reference Viewer').ids.picture_viewer.total_images_to_dislpay = total_images_to_show.text
+                    root.manager.current = 'Image Reference Viewer'
+                    root.manager.get_screen('Image Reference Viewer').ids.picture_viewer.set_clock()
+
+<PictureViewerScreen>
+    time_between: 1
+    name: 'Image Reference Viewer'
+    PictureViewer:
+        index: 0
+        total_images_to_dislpay: 1
+        id: picture_viewer
+        anchor_x: 'center'
+        anchor_y: 'center'
+
+        Image:
+            source: root.ids.picture_viewer.get_image_source()
