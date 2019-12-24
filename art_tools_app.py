@@ -1,3 +1,5 @@
+import ideas.factory as gen_factory
+import practice.factory as practice_factory
 from kivy.app import App
 from kivy.clock import Clock
 from kivy.properties import (
@@ -7,9 +9,6 @@ from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
-
-import ideas.factory as gen_factory
-import practice.factory as practice_factory
 from practice.image_manager import Images
 
 FIGURE_DRAWING_INDEX = 0
