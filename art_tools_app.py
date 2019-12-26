@@ -33,18 +33,23 @@ class PictureViewer(AnchorLayout):
         for child in self.children:
             child.source = self.images.get_rand_image()
 
-    def toggle_index(self):
-        if self.file_index == 0:
-            self.file_index = 1
-            self.images = Images(image_path_index=self.file_index)
-        else:
-            self.file_index = 0
-            self.images = Images(image_path_index=self.file_index)
+    def change_gallery(self, index):
+        self.images = Images(image_path_index=index)
+        self.change_image()
+
+    def toggle_index(self, gallery):
+        if gallery == 'Landscape Drawing':
+            self.file_index = LANDSCAPE_DRAWING_INDEX
+            self.change_gallery(self.file_index)
+        elif gallery == 'Figure Drawing':
+            self.file_index = FIGURE_DRAWING_INDEX
+            self.change_gallery(self.file_index)
 
     def update_images(self, dt):
         if self.images_displayed < self.total_images_to_dislpay:
             for child in self.children:
-                child.source = self.images.get_rand_image()
+                if child.source:
+                    child.source = self.images.get_rand_image()
             self.images_displayed += 1
         else:
             self.clock_event.cancel()
@@ -52,7 +57,7 @@ class PictureViewer(AnchorLayout):
             self.parent.manager.current = "Kyle's Art Tools"
 
     def set_clock(self):
-        self.time_between *= MINUTES
+        self.time_between *= 1
         self.clock_event = Clock.schedule_interval(callback=self.update_images, timeout=self.time_between)
 
 
@@ -71,7 +76,7 @@ class IdeasButton(Button):
         generated_items = ''
         items = gen_factory.get_items()
         for i in range(5):
-            generated_items += f'{items.generate()} \n'
+            generated_items += items.generate()
         self.text = str(generated_items)
 
     def get_exercise(self):

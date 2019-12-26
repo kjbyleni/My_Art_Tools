@@ -5,14 +5,14 @@
     id: ideas_container
 
 <HeaderLabel@Label>:
-    font_size: 20
+    font_size: 25
     size_hint: 1, .15
 
 <SmallLabel@Label>:
     font_size: 10
 
 <IdeasButton>:
-    font_size: 12
+    font_size: 18
     halign: 'center'
     valign: 'center'
     shorten: True
@@ -94,7 +94,7 @@
                 text: 'Figure Drawing'
                 on_press:
                     root.manager.get_screen('Image Reference Viewer').ids.picture_viewer.time_between = time_between_images.text
-                    root.manager.get_screen('Image Reference Viewer').ids.picture_viewer.toggle_index()
+                    root.manager.get_screen('Image Reference Viewer').ids.picture_viewer.toggle_index(self.text)
                     root.manager.get_screen('Image Reference Viewer').ids.picture_viewer.total_images_to_dislpay = total_images_to_show.text
                     root.manager.current = 'Image Reference Viewer'
                     root.manager.get_screen('Image Reference Viewer').ids.picture_viewer.set_clock()
@@ -105,7 +105,7 @@
                 text: 'Landscape Drawing'
                 on_press:
                     root.manager.get_screen('Image Reference Viewer').ids.picture_viewer.time_between = time_between_images.text
-                    root.manager.get_screen('Image Reference Viewer').ids.picture_viewer.toggle_index()
+                    root.manager.get_screen('Image Reference Viewer').ids.picture_viewer.toggle_index(self.text)
                     root.manager.get_screen('Image Reference Viewer').ids.picture_viewer.total_images_to_dislpay = total_images_to_show.text
                     root.manager.current = 'Image Reference Viewer'
                     root.manager.get_screen('Image Reference Viewer').ids.picture_viewer.set_clock()
