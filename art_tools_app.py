@@ -57,7 +57,7 @@ class PictureViewer(AnchorLayout):
             self.parent.manager.current = "Kyle's Art Tools"
 
     def set_clock(self):
-        self.time_between *= 1
+        self.time_between *= MINUTES
         self.clock_event = Clock.schedule_interval(callback=self.update_images, timeout=self.time_between)
 
 
