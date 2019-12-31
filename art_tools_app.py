@@ -1,7 +1,6 @@
-import ideas.factory as gen_factory
-import practice.factory as practice_factory
 from kivy.app import App
 from kivy.clock import Clock
+from kivy.core.window import Window
 from kivy.properties import (
     NumericProperty, ObjectProperty
 )
@@ -9,6 +8,9 @@ from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
+
+import ideas.factory as gen_factory
+import practice.factory as practice_factory
 from practice.image_manager import Images
 
 FIGURE_DRAWING_INDEX = 0
@@ -20,7 +22,7 @@ class PictureViewer(AnchorLayout):
     time_between = NumericProperty(0)
     file_index = NumericProperty(1)
     total_images_to_dislpay = NumericProperty(1)
-    images_displayed = NumericProperty(1)
+    total_images_displayed = NumericProperty(1)
     images = ObjectProperty(None)
     clock_event = None
 
@@ -29,9 +31,15 @@ class PictureViewer(AnchorLayout):
             self.images = Images(image_path_index=self.file_index)
         return self.images.get_rand_image()
 
-    def change_image(self):
+    def change_image(self, get_prev=False, get_next=False):
         for child in self.children:
-            child.source = self.images.get_rand_image()
+            if child.source:
+                if get_prev:
+                    child.source = self.images.get_previous_image()
+                elif get_next:
+                    child.source = self.images.get_next_image()
+                else:
+                    child.source = self.images.get_rand_image()
 
     def change_gallery(self, index):
         self.images = Images(image_path_index=index)
@@ -46,19 +54,36 @@ class PictureViewer(AnchorLayout):
             self.change_gallery(self.file_index)
 
     def update_images(self, dt):
-        if self.images_displayed < self.total_images_to_dislpay:
-            for child in self.children:
-                if child.source:
-                    child.source = self.images.get_rand_image()
-            self.images_displayed += 1
+        if self.total_images_displayed < self.total_images_to_dislpay:
+            self.change_image()
+            self.total_images_displayed += 1
         else:
             self.clock_event.cancel()
-            self.images_displayed = 1
+            self.total_images_displayed = 1
             self.parent.manager.current = "Kyle's Art Tools"
 
     def set_clock(self):
         self.time_between *= MINUTES
         self.clock_event = Clock.schedule_interval(callback=self.update_images, timeout=self.time_between)
+        self.bound_window = Window.bind(on_key_down=self.key_action)
+
+    def key_action(self, *args):
+        print(args)
+        char_key_index = 3
+        if args[char_key_index] == ' ':  # Spacebar was pressed!
+            self.change_image()
+            self.clock_event.cancel()
+            self.clock_event = Clock.schedule_interval(callback=self.update_images, timeout=self.time_between)
+        elif args[char_key_index] is None:
+            key_value_index = 1
+            if args[key_value_index] == 276:  # Left Arrow Pressed!
+                self.change_image(get_prev=True)
+                self.clock_event.cancel()
+                self.clock_event = Clock.schedule_interval(callback=self.update_images, timeout=self.time_between)
+            elif args[key_value_index] == 275:  # Right Arrow Pressed!
+                self.change_image(get_next=True)
+                self.clock_event.cancel()
+                self.clock_event = Clock.schedule_interval(callback=self.update_images, timeout=self.time_between)
 
 
 class PictureViewerScreen(Screen):
