@@ -1,9 +1,9 @@
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager
 
-from edit_components import EditListsScreen
-from ideas_tools_components import ArtToolsScreen
-from picture_viewer_components import PictureViewerScreen
+from ideas.edit_components import EditListsScreen
+from ideas.ideas_tools_components import ArtToolsScreen
+from ideas.picture_viewer_components import PictureViewerScreen
 
 
 class ArtToolsApp(App):
