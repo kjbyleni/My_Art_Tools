@@ -26,5 +26,20 @@ def get_env(idea_path=IDEA_PATH):
     return Generator(context='Environment', keys=keys, idea_path=idea_path)
 
 
+def get_study(idea_path=IDEA_PATH):
+    study = 'study'
+    anatomy = 'anatomy'
+    emotion = 'emotion'
+    keys = [study, anatomy, emotion]
+    return Generator(context='Study', keys=keys, idea_path=idea_path)
+
+
+def get_exercise(idea_path=IDEA_PATH):
+    exercise = 'exercise'
+    keys = [exercise]
+    return Generator(context='Exercise', keys=keys, idea_path=idea_path)
+
+
 def get_all(idea_path=IDEA_PATH):
-    return Generator(idea_path=idea_path)
+    return Generator(context='Practice', idea_path=idea_path)
+

@@ -1,5 +1,4 @@
 from kivy.clock import mainthread
-from kivy.clock import mainthread
 from kivy.properties import (
     ObjectProperty
 )
@@ -9,7 +8,6 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.screenmanager import Screen
 
 import ideas.factory as gen_factory
-import practice.factory as practice_factory
 from lib.utils import read_in_paths, add_folder_to_path, remove_folder_path
 
 
@@ -43,10 +41,10 @@ class IdeasButton(Button):
         self.text = str(generated_items)
 
     def get_exercise(self):
-        self.text = str(practice_factory.get_exercise().generate())
+        self.text = str(gen_factory.get_exercise().generate())
 
     def get_study(self):
-        self.text = str(practice_factory.get_study().generate())
+        self.text = str(gen_factory.get_study().generate())
 
     def add_path(self):
         add_folder_to_path()
