@@ -59,6 +59,12 @@
                 text: 'Generate Study'
                 on_press: self.get_study()
 
+            HeaderLabel:
+                text: 'Edit Lists'
+            EditButton:
+                text: 'Edit Lists'
+                on_press: self.load_edit_screen()
+
         VirticalBox:
             HeaderLabel:
                 text: 'Character'
@@ -99,6 +105,10 @@
                         id: total_images_to_show
             VirticalBox:
                 id: image_box
+
+<EditListsScreen>
+    id: 'edit_lists'
+    name: 'Edit Lists'
 
 
 <PictureViewerScreen>

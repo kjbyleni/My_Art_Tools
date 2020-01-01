@@ -3,10 +3,12 @@ import json
 from random import randint
 import lib.utils as utils
 
+IDEA_PATH = './ideas/ideas.json'
+
 
 class Generator:
 
-    def __init__(self, idea_path: str, context='general', keys=[]):
+    def __init__(self, idea_path=IDEA_PATH, context='general', keys=[]):
         self.idea_path = idea_path
         self.context = context
         self.rand_items = []

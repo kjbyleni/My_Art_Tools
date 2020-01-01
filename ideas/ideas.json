@@ -1,10 +1,10 @@
 {
     "shapes": [
-        "Circle",
         "Oval",
+        "Circle",
         "Rectangle",
-        "Square",
-        "Triangle"
+        "Triangle",
+        "Square"
     ],
     "physical nature": [
         "Boy",
