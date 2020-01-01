@@ -5,14 +5,16 @@
     id: ideas_container
 
 <HeaderLabel@Label>:
-    font_size: 25
+    font_size: 18
     size_hint: 1, .15
+    spacing: 10
 
 <SmallLabel@Label>:
     font_size: 10
+    spacing: 10
 
 <IdeasButton>:
-    font_size: 18
+    font_size: 14
     halign: 'center'
     valign: 'center'
     shorten: True
@@ -32,8 +34,8 @@
     name: "Kyle's Art Tools"
     ArtToolsIdeasContainer:
         id: ideas_container
-        cols: 3
-        rows: 3
+        cols: 4
+        rows: 1
         spacing: 10
         padding: 10
 
@@ -44,28 +46,13 @@
                 text: 'Generate Environment'
                 on_press: self.get_environment()
 
-        VirticalBox:
-            HeaderLabel:
-                text: 'Character'
-            IdeasButton:
-                text: 'Generate Character'
-                on_press: self.get_character()
-
-        VirticalBox:
-            HeaderLabel:
-                text: 'Items'
-            IdeasButton:
-                text: 'Generate Items'
-                on_press: self.get_items()
-
-        VirticalBox:
             HeaderLabel:
                 text: 'Exercise'
             IdeasButton:
                 text: 'Generate Exercise'
                 on_press: self.get_exercise()
 
-        VirticalBox:
+
             HeaderLabel:
                 text: 'Study'
             IdeasButton:
@@ -74,42 +61,45 @@
 
         VirticalBox:
             HeaderLabel:
-                text: 'Image Gallery'
-            HorizontalBox:
-                size_hint: 1, .15
-                SmallLabel:
-                    text: 'Time Between Images'
-                ImageInput:
-                    text: "1"
-                    id: time_between_images
-            HorizontalBox:
-                size_hint: 1, .15
-                SmallLabel:
-                    text: 'Total Images'
-                ImageInput:
-                    text: "5"
-                    id: total_images_to_show
+                text: 'Character'
             IdeasButton:
-                size_hint: 1, .35
-                text: 'Figure Drawing'
-                on_press:
-                    root.manager.get_screen('Image Reference Viewer').ids.picture_viewer.time_between = time_between_images.text
-                    root.manager.get_screen('Image Reference Viewer').ids.picture_viewer.toggle_index(self.text)
-                    root.manager.get_screen('Image Reference Viewer').ids.picture_viewer.total_images_to_dislpay = total_images_to_show.text
-                    root.manager.current = 'Image Reference Viewer'
-                    root.manager.get_screen('Image Reference Viewer').ids.picture_viewer.set_clock()
-                    root.manager.get_screen('Image Reference Viewer').ids.picture_viewer.change_image()
+                text: 'Generate Character'
+                on_press: self.get_character()
 
+            HeaderLabel:
+                text: 'Items'
             IdeasButton:
-                size_hint: 1, .35
-                text: 'Landscape Drawing'
-                on_press:
-                    root.manager.get_screen('Image Reference Viewer').ids.picture_viewer.time_between = time_between_images.text
-                    root.manager.get_screen('Image Reference Viewer').ids.picture_viewer.toggle_index(self.text)
-                    root.manager.get_screen('Image Reference Viewer').ids.picture_viewer.total_images_to_dislpay = total_images_to_show.text
-                    root.manager.current = 'Image Reference Viewer'
-                    root.manager.get_screen('Image Reference Viewer').ids.picture_viewer.set_clock()
-                    root.manager.get_screen('Image Reference Viewer').ids.picture_viewer.change_image()
+                text: 'Generate Items'
+                on_press: self.get_items()
+
+            HeaderLabel:
+                text: 'Add Path'
+            IdeasButton:
+                text: 'Add Path For Reference'
+                on_press: self.add_path()
+
+        VirticalBox:
+            VirticalBox:
+                size_hint: 1, .25
+                HeaderLabel:
+                    text: 'Image Gallery'
+                HorizontalBox:
+                    padding: 10
+                    SmallLabel:
+                        text: 'Time Between Images'
+                    ImageInput:
+                        text: "1"
+                        id: time_between_images
+                HorizontalBox:
+                    padding: 10
+                    SmallLabel:
+                        text: 'Total Images'
+                    ImageInput:
+                        text: "5"
+                        id: total_images_to_show
+            VirticalBox:
+                id: image_box
+
 
 <PictureViewerScreen>
     time_between: 1
@@ -119,7 +109,3 @@
         id: picture_viewer
         anchor_x: 'center'
         anchor_y: 'center'
-
-        Image:
-            id: reference_image
-            source: root.ids.picture_viewer.get_image_source()

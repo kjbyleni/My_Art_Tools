@@ -1,5 +1,6 @@
 from kivy.app import App
 from kivy.clock import Clock
+from kivy.clock import mainthread
 from kivy.core.window import Window
 from kivy.properties import (
     NumericProperty, ObjectProperty
@@ -7,10 +8,13 @@ from kivy.properties import (
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.image import Image
 from kivy.uix.screenmanager import ScreenManager, Screen
 
 import ideas.factory as gen_factory
 import practice.factory as practice_factory
+from lib.utils import read_in_paths, add_folder_to_path, remove_folder_path
 from practice.image_manager import Images
 
 FIGURE_DRAWING_INDEX = 0
@@ -20,16 +24,11 @@ MINUTES = 60
 
 class PictureViewer(AnchorLayout):
     time_between = NumericProperty(0)
-    file_index = NumericProperty(1)
+    file_path_key = ObjectProperty('')
     total_images_to_dislpay = NumericProperty(1)
     total_images_displayed = NumericProperty(1)
     images = ObjectProperty(None)
     clock_event = None
-
-    def get_image_source(self):
-        if self.images is None:
-            self.images = Images(image_path_index=self.file_index)
-        return self.images.get_rand_image()
 
     def change_image(self, get_prev=False, get_next=False):
         for child in self.children:
@@ -41,28 +40,28 @@ class PictureViewer(AnchorLayout):
                 else:
                     child.source = self.images.get_rand_image()
 
-    def change_gallery(self, index):
-        self.images = Images(image_path_index=index)
+    def change_gallery(self, path_key):
+        self.images = Images(path_key=path_key)
         self.change_image()
 
-    def toggle_index(self, gallery):
-        if gallery == 'Landscape Drawing':
-            self.file_index = LANDSCAPE_DRAWING_INDEX
-            self.change_gallery(self.file_index)
-        elif gallery == 'Figure Drawing':
-            self.file_index = FIGURE_DRAWING_INDEX
-            self.change_gallery(self.file_index)
+    def load_art_tools_main(self):
+        self.clock_event.cancel()
+        self.total_images_displayed = 1
+        self.parent.manager.current = "Kyle's Art Tools"
 
     def update_images(self, dt):
         if self.total_images_displayed < self.total_images_to_dislpay:
             self.change_image()
             self.total_images_displayed += 1
         else:
-            self.clock_event.cancel()
-            self.total_images_displayed = 1
-            self.parent.manager.current = "Kyle's Art Tools"
+            self.load_art_tools_main()
 
-    def set_clock(self):
+    def setup_background(self, path_key):
+        self.change_gallery(path_key=path_key)
+        image = Image()
+        image.source = self.images.get_rand_image()
+        self.add_widget(image)
+
         self.time_between *= MINUTES
         self.clock_event = Clock.schedule_interval(callback=self.update_images, timeout=self.time_between)
         self.bound_window = Window.bind(on_key_down=self.key_action)
@@ -84,10 +83,27 @@ class PictureViewer(AnchorLayout):
                 self.change_image(get_next=True)
                 self.clock_event.cancel()
                 self.clock_event = Clock.schedule_interval(callback=self.update_images, timeout=self.time_between)
+            elif args[key_value_index] == 8:  # Backspace Pressed!
+                self.load_art_tools_main()
 
 
 class PictureViewerScreen(Screen):
     pass
+
+
+class ImgViewerBtn(Button):
+    file_key = ObjectProperty('')
+    file_value = ObjectProperty('')
+
+    def load_ref_drawing(self, *kwargs):
+        my_parent = self.parent.parent.parent
+        my_manager = self.parent.parent.parent.manager
+        pic_viewer = my_manager.get_screen('Image Reference Viewer').ids.picture_viewer
+
+        pic_viewer.time_between = my_parent.ids.time_between_images.text
+        pic_viewer.total_images_to_dislpay = my_parent.ids.total_images_to_show.text
+        pic_viewer.setup_background(self.text)
+        my_manager.current = 'Image Reference Viewer'
 
 
 class IdeasButton(Button):
@@ -110,13 +126,54 @@ class IdeasButton(Button):
     def get_study(self):
         self.text = str(practice_factory.get_study().generate())
 
+    def add_path(self):
+        add_folder_to_path()
+        self.parent.parent.parent.update_buttons()
+
 
 class ArtToolsIdeasContainer(GridLayout):
     pass
 
 
+class DeleteButton(Button):
+    def delete_with_key(self, *kwargs):
+        remove_folder_path(self.id)
+        self.parent.parent.parent.parent.parent.update_buttons()
+
+
 class ArtToolsScreen(Screen):
-    pass
+    imgViewerBtns = ObjectProperty(ImgViewerBtn())
+    img_paths = ObjectProperty('')
+    loaded = ObjectProperty(False)
+
+    @mainthread
+    def on_enter(self):
+        if not self.loaded:
+            self.img_paths = read_in_paths()
+            for key in self.img_paths:
+                button = ImgViewerBtn(text=key)
+                button.file_key = key
+                button.file_value = self.img_paths[key]
+                button.bind(on_press=button.load_ref_drawing)
+
+                delete_btn = DeleteButton(text='D')
+                delete_btn.id = key
+                delete_btn.size_hint = (.25, 1)
+                delete_btn.bind(on_press=delete_btn.delete_with_key)
+
+                al = BoxLayout()
+                al.id = 'img_viewer_btn'
+                al.add_widget(button)
+                al.add_widget(delete_btn)
+                self.ids.image_box.add_widget(al)
+                self.loaded = True
+
+    def update_buttons(self):
+        for i in range(len(self.ids.image_box.children)):
+            self.ids.image_box.remove_widget(self.ids.image_box.children[-1])
+
+        self.loaded = False
+        self.on_enter()
 
 
 class ArtToolsApp(App):

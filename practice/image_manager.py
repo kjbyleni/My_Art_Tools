@@ -6,8 +6,8 @@ import lib.utils as utils
 
 class Images:
 
-    def __init__(self, image_path_index: int):
-        self.path_to_pics = utils.get_path(path_index=image_path_index)
+    def __init__(self, path_key: int):
+        self.path_to_pics = utils.get_path_with_key(key=path_key)
         self.img_exts = ["jpg", "jpeg", "png"]
         self.exclude = ["PoseOverview"]
         self.images_shown = PreviousArray()
