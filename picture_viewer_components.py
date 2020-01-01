@@ -7,7 +7,7 @@ from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.image import Image
 from kivy.uix.screenmanager import Screen
 
-from practice.image_manager import Images
+from ideas.image_manager import Images
 
 MINUTES = 60
 

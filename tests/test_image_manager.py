@@ -1,10 +1,10 @@
 import pytest
 
-from practice.image_manager import Images
+from ideas.image_manager import Images
 
 @pytest.fixture
 def figure_image_gen():
-    yield Images(0)
+    yield Images('Figure Drawing')
 
 
 def test_files_in_path_has_no_duplicates(figure_image_gen):

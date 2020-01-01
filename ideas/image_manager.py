@@ -1,7 +1,7 @@
 import os
 from random import randint
 
-import lib.utils as utils
+import ideas.utils as utils
 
 
 class Images:

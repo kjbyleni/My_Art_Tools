@@ -1,5 +1,5 @@
 import pytest
-from practice.image_manager import PreviousArray
+from ideas.image_manager import PreviousArray
 
 @pytest.fixture
 def prev():

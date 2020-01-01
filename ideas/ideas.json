@@ -87,8 +87,9 @@
         "Winter"
     ],
     "time": [
-        "Day",
-        "Night"
+        "Dinner",
+        "Night",
+        "Day"
     ],
     "inside": [
         "Bar",

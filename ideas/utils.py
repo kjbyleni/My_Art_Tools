@@ -1,6 +1,5 @@
-import os
 import json
-import tkinter as tk
+import os
 from tkinter import filedialog
 
 saved_storage = 'path.json'

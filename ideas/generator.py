@@ -1,15 +1,15 @@
 import json
-
 from random import randint
-import lib.utils as utils
+
+import ideas.utils as utils
 
 IDEA_PATH = './ideas/ideas.json'
 
 
 class Generator:
 
-    def __init__(self, idea_path=IDEA_PATH, context='general', keys=[]):
-        self.idea_path = idea_path
+    def __init__(self, context='general', keys=[]):
+        self.idea_path = IDEA_PATH
         self.context = context
         self.rand_items = []
 
@@ -24,13 +24,9 @@ class Generator:
     def get_keys(self):
         return list(self.keys)
 
-    def export_lst(self, export_to=None):
-        if export_to is None:
-            export_to_path = self.idea_path
-        else:
-            export_to_path = export_to
+    def export_lst(self):
         temp_lst = json.dumps(self.lst, indent=4)
-        f = open(export_to_path, 'w+')
+        f = open(self.idea_path, 'w+')
         f.write(temp_lst)
         f.close()
 

@@ -8,7 +8,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.screenmanager import Screen
 
 import ideas.factory as gen_factory
-from lib.utils import read_in_paths, add_folder_to_path, remove_folder_path
+from ideas.utils import read_in_paths, add_folder_to_path, remove_folder_path
 
 
 class ImgViewerBtn(Button):
