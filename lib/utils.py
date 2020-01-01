@@ -9,14 +9,19 @@ saved_storage = 'path.json'
 def read_in_paths():
     is_file = os.path.isfile(saved_storage)
     with open(saved_storage, 'r' if is_file else 'w+') as paths:
-        file_data = json.load(paths)
+        if is_file:
+            file_data = json.load(paths)
+        else:
+            file_data = {}
+            paths.write("{}")
+            paths.close()
     return file_data
 
 
 def add_folder_to_path():
     folder_to_add = filedialog.askdirectory()
     if folder_to_add and os.path.isdir(folder_to_add):
-        folder_name = folder_to_add[folder_to_add.rfind('/') + 1:len(folder_to_add) - 1]
+        folder_name = folder_to_add[folder_to_add.rfind('/') + 1:len(folder_to_add)]
         file_data = read_in_paths()
         file_data[folder_name] = folder_to_add
         temp_lst = json.dumps(file_data, indent=4)

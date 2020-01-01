@@ -6,9 +6,9 @@ from kivy.properties import (
     NumericProperty, ObjectProperty
 )
 from kivy.uix.anchorlayout import AnchorLayout
+from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
-from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.image import Image
 from kivy.uix.screenmanager import ScreenManager, Screen
 
@@ -96,8 +96,8 @@ class ImgViewerBtn(Button):
     file_value = ObjectProperty('')
 
     def load_ref_drawing(self, *kwargs):
-        my_parent = self.parent.parent.parent
-        my_manager = self.parent.parent.parent.manager
+        my_parent = self.parent.parent.parent.parent.parent
+        my_manager = self.parent.parent.parent.parent.parent.manager
         pic_viewer = my_manager.get_screen('Image Reference Viewer').ids.picture_viewer
 
         pic_viewer.time_between = my_parent.ids.time_between_images.text
@@ -162,6 +162,7 @@ class ArtToolsScreen(Screen):
                 delete_btn.bind(on_press=delete_btn.delete_with_key)
 
                 al = BoxLayout()
+                al.padding = 10
                 al.id = 'img_viewer_btn'
                 al.add_widget(button)
                 al.add_widget(delete_btn)
