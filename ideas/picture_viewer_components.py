@@ -22,13 +22,14 @@ class PictureViewer(AnchorLayout):
 
     def change_image(self, get_prev=False, get_next=False):
         self.clear_widgets()
-        image = AsyncImage()
         if get_prev:
-            image.source = self.images.get_previous_image()
+            image_source = self.images.get_previous_image()
         elif get_next:
-            image.source = self.images.get_next_image()
+            image_source = self.images.get_next_image()
         else:
-            image.source = self.images.get_rand_image()
+            image_source = self.images.get_rand_image()
+
+        image = AsyncImage(source=image_source)
         self.add_widget(image)
 
     def change_gallery(self, path_key):
