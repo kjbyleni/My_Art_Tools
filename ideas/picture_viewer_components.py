@@ -4,7 +4,7 @@ from kivy.properties import (
     NumericProperty, ObjectProperty
 )
 from kivy.uix.anchorlayout import AnchorLayout
-from kivy.uix.image import AsyncImage
+from kivy.uix.image import Image
 from kivy.uix.screenmanager import Screen
 
 from ideas.image_manager import Images
@@ -29,7 +29,7 @@ class PictureViewer(AnchorLayout):
         else:
             image_source = self.images.get_rand_image()
 
-        image = AsyncImage(source=image_source)
+        image = Image(source=image_source)
         self.add_widget(image)
 
     def change_gallery(self, path_key):
