@@ -4,7 +4,7 @@ from kivy.properties import (
     NumericProperty, ObjectProperty
 )
 from kivy.uix.anchorlayout import AnchorLayout
-from kivy.uix.image import Image
+from kivy.uix.image import AsyncImage
 from kivy.uix.screenmanager import Screen
 
 from ideas.image_manager import Images
@@ -21,18 +21,20 @@ class PictureViewer(AnchorLayout):
     clock_event = None
 
     def change_image(self, get_prev=False, get_next=False):
-        for child in self.children:
-            if child.source:
-                if get_prev:
-                    child.source = self.images.get_previous_image()
-                elif get_next:
-                    child.source = self.images.get_next_image()
-                else:
-                    child.source = self.images.get_rand_image()
+        self.clear_widgets()
+        image = AsyncImage()
+        if get_prev:
+            image.source = self.images.get_previous_image()
+        elif get_next:
+            image.source = self.images.get_next_image()
+        else:
+            image.source = self.images.get_rand_image()
+        self.add_widget(image)
 
     def change_gallery(self, path_key):
         self.images = Images(path_key=path_key)
         self.change_image()
+        print(self.images.get_rand_image())
 
     def load_art_tools_main(self):
         self.clock_event.cancel()
@@ -48,10 +50,6 @@ class PictureViewer(AnchorLayout):
 
     def setup_background(self, path_key):
         self.change_gallery(path_key=path_key)
-        image = Image()
-        image.source = self.images.get_rand_image()
-        self.add_widget(image)
-
         self.time_between *= MINUTES
         self.clock_event = Clock.schedule_interval(callback=self.update_images, timeout=self.time_between)
         self.bound_window = Window.bind(on_key_down=self.key_action)
