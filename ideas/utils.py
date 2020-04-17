@@ -17,18 +17,6 @@ def read_in_paths():
     return file_data
 
 
-def add_folder_to_path():
-    folder_to_add = filedialog.askdirectory()
-    if folder_to_add and os.path.isdir(folder_to_add):
-        folder_name = folder_to_add[folder_to_add.rfind('/') + 1:len(folder_to_add)]
-        file_data = read_in_paths()
-        file_data[folder_name] = folder_to_add.replace('/', '\\')
-        temp_lst = json.dumps(file_data, indent=4)
-        f = open(saved_storage, 'w+')
-        f.write(temp_lst)
-        f.close()
-
-
 def get_path_with_key(key):
     file_data = read_in_paths()
     return file_data[key]

@@ -8,7 +8,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.screenmanager import Screen
 
 import ideas.factory as gen_factory
-from ideas.utils import read_in_paths, add_folder_to_path, remove_folder_path
+from ideas.utils import read_in_paths
 
 
 class ImgViewerBtn(Button):
@@ -46,19 +46,9 @@ class IdeasButton(Button):
     def get_study(self):
         self.text = str(gen_factory.get_study().generate())
 
-    def add_path(self):
-        add_folder_to_path()
-        self.parent.parent.parent.update_buttons()
-
 
 class ArtToolsIdeasContainer(GridLayout):
     pass
-
-
-class DeleteButton(Button):
-    def delete_with_key(self, *kwargs):
-        remove_folder_path(self.id)
-        self.parent.parent.parent.parent.parent.update_buttons()
 
 
 class ArtToolsScreen(Screen):
@@ -76,16 +66,10 @@ class ArtToolsScreen(Screen):
                 button.file_value = self.img_paths[key]
                 button.bind(on_press=button.load_ref_drawing)
 
-                delete_btn = DeleteButton(text='D')
-                delete_btn.id = key
-                delete_btn.size_hint = (.25, 1)
-                delete_btn.bind(on_press=delete_btn.delete_with_key)
-
                 al = BoxLayout()
                 al.padding = 10
                 al.id = 'img_viewer_btn'
                 al.add_widget(button)
-                al.add_widget(delete_btn)
                 self.ids.image_box.add_widget(al)
                 self.loaded = True
 
